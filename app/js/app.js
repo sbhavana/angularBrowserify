@@ -1,9 +1,17 @@
 'use strict';
 
+var angular = require ( 'angular' );
+var socket = require ( "./socketService" );
+var mainController = require('./controllers/mainCntrl.js');
+var ListController = require('./controllers/listCntrl.js');
+var CreateController = require('./controllers/createCntrl.js');
+var EditController = require('./controllers/editCntrl.js');
+
 // Declare app level module which depends on filters, and services
 angular.module('myApp', [
         'ngRoute',
-        'btford.socket-io'
+        socket.name
+        //'btford.socket-io'
     ])
 
     .config(['$routeProvider', function($routeProvider) {
@@ -32,6 +40,15 @@ angular.module('myApp', [
         }
     }])
 
+.controller ( 'mainController', [ '$scope', 'app-version', mainController])
+
+    .controller ( 'ListController', [ '$scope', 'socket', ListController])
+
+    .controller ( 'CreateController', [ '$scope', '$location', 'socket', CreateController])
+
+    .controller ( 'EditController', [ '$scope', '$location', '$routeParams', 'socket', EditController]);
+
+    /*
     .controller ( 'mainController', [ '$scope', 'app-version', function ( $scope,  app_version ) {
 
         var Cntrl = {};
@@ -188,4 +205,4 @@ angular.module('myApp', [
             });
         };
     }]);
-
+     */

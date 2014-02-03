@@ -1,0 +1,6 @@
+grunt browserify:libs
+cp dist/libs.js app/libs.js
+cd app/js
+browserify -x angular app.js -o ../bundle.js
+cd ../..
+node server
